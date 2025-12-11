@@ -1,0 +1,271 @@
+@page
+@model SurveyDashboard.Pages.IndexModel
+@using System.Linq
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="toolbar">
+    <div class="filters">
+        <a class="chip @(Model.IsSegmentSelected(null) ? "active" : "")" asp-page="./Index" asp-route-view="@Model.CurrentView">Alle klassen</a>
+        @foreach (var seg in Model.Segments)
+        {
+        <a class="chip @(Model.IsSegmentSelected(seg) ? "active" : "")" asp-page="./Index" asp-route-segment="@seg" asp-route-view="@Model.CurrentView">@seg</a>
+        }
+    </div>
+    
+    <div class="view-toggles">
+        <a class="btn-toggle @(Model.CurrentView == "Chatbots" ? "active" : "")" asp-page="./Index" asp-route-view="Chatbots" asp-route-segment="@Model.SelectedSegment">Chatbots</a>
+        <a class="btn-toggle @(Model.CurrentView == "Copilot" ? "active" : "")" asp-page="./Index" asp-route-view="Copilot" asp-route-segment="@Model.SelectedSegment">Github Copilot</a>
+    </div>
+</div>
+
+<div class="grid">
+    @if (!Model.ChartQuestions.Any())
+    {
+        <div class="card empty">
+            <div>Geen data gevonden. Controleer het Excel-bestand in <code>data</code>.</div>
+        </div>
+    }
+    else
+    {
+        for (int i = 0; i < Model.ChartQuestions.Count; i++)
+        {
+            var chart = Model.ChartQuestions[i];
+            var themeClass = Model.CurrentView == "Copilot" ? "copilot" : "chatgpt";
+            <div class="card @themeClass">
+                <h2>@chart.Question</h2>
+                @{
+                    var total = chart.ChartType == "bar"
+                        ? (chart.Series?.SelectMany(s => s.Data).Sum() ?? 0)
+                        : chart.Values.Sum();
+                }
+
+                @if (total > 0)
+                {
+                    <div class="meta">
+                        Aantal antwoorden: @total
+                    </div>
+                }
+
+                @if (chart.ChartType == "text")
+                {
+                    <div class="other-block" style="border-top:none; margin-top:0;">
+                        <div class="other-title">Antwoorden:</div>
+                        <ul class="other-list">
+                            @foreach (var txt in chart.OtherResponses ?? new List<string>())
+                            {
+                                <li>@txt</li>
+                            }
+                        </ul>
+                    </div>
+                }
+                else if (chart.ChartType.StartsWith("bar"))
+                {
+                    <div class="chart-container wide">
+                        <canvas id="chart-@i" aria-label="@chart.Question"></canvas>
+                    </div>
+                }
+                else
+                {
+                    <div class="chart-layout">
+                        <div class="chart-container">
+                            <canvas id="chart-@i" aria-label="@chart.Question"></canvas>
+                        </div>
+                        <div class="legend">
+                            @for (int j = 0; j < chart.Labels.Count; j++)
+                            {
+                                <div class="legend-row">
+                                    <span class="swatch" style="background:@chart.Colors[j]"></span>
+                                    <span class="legend-label">@chart.Labels[j]</span>
+                                    <span class="legend-value">@chart.Values[j]</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+                @if (chart.ChartType != "text" && chart.OtherResponses is not null && chart.OtherResponses.Any())
+                {
+                    <div class="other-block">
+                        <div class="other-title">Andere invoer:</div>
+                        <ul class="other-list">
+                            @foreach (var txt in chart.OtherResponses)
+                            {
+                                <li>@txt</li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+        const chartData = @Html.Raw(Model.SerializeChartData());
+
+        chartData.forEach((q, idx) => {
+            const el = document.getElementById(`chart-${idx}`);
+            if (!el) return;
+
+            if (q.chartType && q.chartType.startsWith("bar")) {
+                const datasets = q.series.map((s, idx) => ({
+                    label: s.name,
+                    data: s.data,
+                    backgroundColor: s.color,
+                    borderWidth: 0,
+                    borderRadius: 6,
+                    barThickness: 15,
+                    maxBarThickness: 20
+                }));
+
+                // Helper to wrap text
+                const wrapText = (str, maxLen) => {
+                    if (!str) return [];
+                    if (str.length <= maxLen) return str;
+                    const words = str.split(' ');
+                    const lines = [];
+                    let currentLine = words[0];
+
+                    for (let i = 1; i < words.length; i++) {
+                        if (currentLine.length + 1 + words[i].length <= maxLen) {
+                            currentLine += " " + words[i];
+                        } else {
+                            lines.push(currentLine);
+                            currentLine = words[i];
+                        }
+                    }
+                    lines.push(currentLine);
+                    return lines;
+                };
+
+                new Chart(el, {
+                    type: 'bar',
+                    data: {
+                        labels: q.labels,
+                        datasets
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        aspectRatio: 0.7,
+                        categoryPercentage: 0.45,
+                        barPercentage: 0.5,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    color: '#374151'
+                                }
+                            },
+                            title: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    title: (ctx) => {
+                                        // Wrap title (question/label)
+                                        const label = ctx[0].label;
+                                        return wrapText(label, 60);
+                                    },
+                                    label: (ctx) => {
+                                        const value = ctx.parsed.x;
+                                        // Wrap dataset label if needed
+                                        const dsLabel = wrapText(ctx.dataset.label, 50);
+                                        // If array (wrapped), join for tooltip or return array? ChartJS tooltip handles array as lines.
+                                        // But we want "Label: Value". 
+                                        // If label is multi-line, it gets tricky. Let's keep label simple or append value to last line.
+                                        if (Array.isArray(dsLabel)) {
+                                            dsLabel[dsLabel.length - 1] += `: ${value}`;
+                                            return dsLabel;
+                                        }
+                                        return `${dsLabel}: ${value}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                stacked: true,
+                                ticks: { color: '#374151' },
+                                grid: { color: 'rgba(0,0,0,0.05)' }
+                            },
+                            y: {
+                                stacked: true,
+                                ticks: { 
+                                    color: '#374151',
+                                    autoSkip: false,
+                                    callback: function(value, index, values) {
+                                        // Wrap Y-axis labels
+                                        const label = this.getLabelForValue(value);
+                                        return wrapText(label, 40); // Max 40 chars per line
+                                    }
+                                },
+                                grid: { color: 'rgba(0,0,0,0.05)' }
+                            }
+                        }
+                    }
+                });
+
+            } else {
+                new Chart(el, {
+                    type: 'pie',
+                    data: {
+                        labels: q.labels,
+                        datasets: [{
+                            label: q.question,
+                            data: q.values,
+                            backgroundColor: q.colors,
+                            borderColor: '#ffffff',
+                            borderWidth: 2,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        aspectRatio: 1,
+                        layout: {
+                            padding: 12
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: (ctx) => {
+                                        const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                                        const value = ctx.parsed;
+                                        const pct = total ? ((value / total) * 100).toFixed(1) : '0.0';
+                                        return `${ctx.label}: ${value} (${pct}%)`;
+                                    }
+                                }
+                            }
+                        },
+                        rotation: -0.5 * Math.PI // start bovenaan
+                    }
+                });
+            }
+        });
+
+        // Bewaar scrollpositie bij filterwissel en herstel na reload.
+        const storageKey = 'dashboard-scroll';
+        document.querySelectorAll('.filters a').forEach(link => {
+            link.addEventListener('click', () => {
+                sessionStorage.setItem(storageKey, window.scrollY.toString());
+            });
+        });
+
+        const saved = sessionStorage.getItem(storageKey);
+        if (saved) {
+            requestAnimationFrame(() => {
+                window.scrollTo({ top: Number(saved), behavior: 'instant' });
+                sessionStorage.removeItem(storageKey);
+            });
+        }
+    </script>
+}

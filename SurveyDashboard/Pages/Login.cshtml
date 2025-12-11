@@ -1,0 +1,30 @@
+@page
+@model SurveyDashboard.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-container" style="max-width: 400px; margin: 5rem auto; padding: 2rem; background: #fff; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+    <h2 style="margin-bottom: 1.5rem; text-align: center;">Inloggen</h2>
+    
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div style="background-color: #fee2e2; color: #991b1b; padding: 0.75rem; border-radius: 6px; margin-bottom: 1rem; text-align: center;">
+            @Model.ErrorMessage
+        </div>
+    }
+
+    <form method="post">
+        <div style="margin-bottom: 1rem;">
+            <label for="Username" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Gebruikersnaam</label>
+            <input type="text" id="Username" name="Username" class="form-control" style="width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px;" required autofocus />
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+            <label for="Password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Wachtwoord</label>
+            <input type="password" id="Password" name="Password" class="form-control" style="width: 100%; padding: 0.5rem; border: 1px solid #d1d5db; border-radius: 6px;" required />
+        </div>
+        <button type="submit" style="width: 100%; background-color: #2563eb; color: white; padding: 0.75rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">
+            Login
+        </button>
+    </form>
+</div>

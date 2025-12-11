@@ -1,0 +1,31 @@
+@{
+    var title = ViewData["Title"] as string ?? "Enquête AI gebruik bij de opleiding Software Developer";
+}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@title - AI enquete</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo">Enquête AI gebruik bij de opleiding Software Developer</div>
+        <div style="margin-left: auto; display: flex; align-items: center; gap: 1rem;">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <span style="color: #6b7280; font-size: 0.9rem;">Hallo, @User.Identity.Name</span>
+                <a asp-page="/Login" asp-page-handler="Logout" style="color: #ef4444; text-decoration: none; font-weight: 500;">Uitloggen</a>
+            }
+        </div>
+    </header>
+    <main class="app-main">
+        @RenderBody()
+    </main>
+    <footer class="app-footer">
+        <span>Data bron: Excel in map <code>data</code></span>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
