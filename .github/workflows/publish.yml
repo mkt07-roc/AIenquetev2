@@ -27,4 +27,22 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       # Publish ONE project with runtime
-      - name: Publish (
+      - name: Publish (win-x86)
+        run: dotnet publish ./SurveyDashboard.csproj `
+          --configuration Release `
+          --runtime win-x86 `
+          --output publish `
+          --no-restore
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build
+
+      - name: Deploy to MonsterASP.NET (Web Deploy)
+        uses: rasmusbuchholdt/simply-web-deploy@2.1.0
+        with:
+          website-name: ${{ secrets.WEBSITE_NAME }}
+          server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
+          server-username: ${{ secrets.SERVER_USERNAME }}
+          server-password: ${{ secrets.SERVER_PASSWORD }}
+          source-path: publish
+          target-delete: true
