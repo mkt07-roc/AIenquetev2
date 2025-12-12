@@ -18,16 +18,17 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      # Restore must include the runtime, otherwise project.assets.json
-      # won't contain a net8.0/win-x86 target.
+      # Restore with runtime so assets include net8.0/win-x86
       - name: Restore dependencies (win-x86)
         run: dotnet restore -r win-x86
 
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
+      # Build WITH runtime so bin/Release/net8.0/win-x86 is created
+      - name: Build (win-x86)
+        run: dotnet build --configuration Release -r win-x86 --no-restore
 
+      # Publish uses existing build output
       - name: Publish (win-x86)
-        run: dotnet publish --configuration Release --runtime win-x86 --output publish --no-build --no-restore
+        run: dotnet publish --configuration Release -r win-x86 --output publish --no-restore --no-build
 
       - name: Test
         run: dotnet test --configuration Release --no-build
