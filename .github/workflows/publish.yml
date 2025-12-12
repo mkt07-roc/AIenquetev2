@@ -18,28 +18,13 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      # Restore with runtime so assets include net8.0/win-x86
-      - name: Restore dependencies (win-x86)
-        run: dotnet restore -r win-x86
+      # Restore packages (solution level, no RID)
+      - name: Restore dependencies
+        run: dotnet restore
 
-      # Build WITH runtime so bin/Release/net8.0/win-x86 is created
-      - name: Build (win-x86)
-        run: dotnet build --configuration Release -r win-x86 --no-restore
+      # Build the solution (NO runtime here!)
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
 
-      # Publish uses existing build output
-      - name: Publish (win-x86)
-        run: dotnet publish --configuration Release -r win-x86 --output publish --no-restore --no-build
-
-      - name: Test
-        run: dotnet test --configuration Release --no-build
-
-      - name: Deploy to MonsterASP.NET (Web Deploy)
-        uses: rasmusbuchholdt/simply-web-deploy@2.1.0
-        with:
-          website-name: ${{ secrets.WEBSITE_NAME }}
-          # Server_Computer_name nu met .axd erachter
-          server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
-          server-username: ${{ secrets.SERVER_USERNAME }}
-          server-password: ${{ secrets.SERVER_PASSWORD }}
-          source-path: publish
-          target-delete: true
+      # Publish ONE project with runtime
+      - name: Publish (
