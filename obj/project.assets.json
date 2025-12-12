@@ -123,129 +123,6 @@
           "buildTransitive/net6.0/_._": {}
         }
       }
-    },
-    "net8.0/win-x86": {
-      "ClosedXML/0.104.0": {
-        "type": "package",
-        "dependencies": {
-          "ClosedXML.Parser": "[1.2.0, 2.0.0)",
-          "DocumentFormat.OpenXml": "[3.0.1, 4.0.0)",
-          "ExcelNumberFormat": "1.1.0",
-          "RBush": "3.2.0",
-          "SixLabors.Fonts": "1.0.0",
-          "System.IO.Packaging": "8.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/ClosedXML.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/ClosedXML.dll": {
-            "related": ".pdb;.xml"
-          }
-        }
-      },
-      "ClosedXML.Parser/1.2.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.1/ClosedXML.Parser.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/ClosedXML.Parser.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "DocumentFormat.OpenXml/3.0.1": {
-        "type": "package",
-        "dependencies": {
-          "DocumentFormat.OpenXml.Framework": "3.0.1"
-        },
-        "compile": {
-          "lib/net8.0/DocumentFormat.OpenXml.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/DocumentFormat.OpenXml.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "DocumentFormat.OpenXml.Framework/3.0.1": {
-        "type": "package",
-        "dependencies": {
-          "System.IO.Packaging": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/DocumentFormat.OpenXml.Framework.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/DocumentFormat.OpenXml.Framework.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "ExcelNumberFormat/1.1.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/ExcelNumberFormat.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/ExcelNumberFormat.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "RBush/3.2.0": {
-        "type": "package",
-        "compile": {
-          "lib/net6.0/RBush.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/RBush.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "SixLabors.Fonts/1.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/netcoreapp3.1/SixLabors.Fonts.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netcoreapp3.1/SixLabors.Fonts.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "System.IO.Packaging/8.0.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/System.IO.Packaging.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/System.IO.Packaging.dll": {
-            "related": ".xml"
-          }
-        },
-        "build": {
-          "buildTransitive/net6.0/_._": {}
-        }
-      }
     }
   },
   "libraries": {
@@ -425,11 +302,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
+      "projectUniqueName": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
       "projectName": "SurveyDashboard",
-      "projectPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
+      "projectPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
       "packagesPath": "C:\\Users\\MKT07\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\obj\\",
+      "outputPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -495,11 +372,6 @@
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
       }
-    },
-    "runtimes": {
-      "win-x86": {
-        "#import": []
-      }
     }
   },
   "logs": [
@@ -510,8 +382,7 @@
       "message": "SurveyDashboard depends on ClosedXML (>= 0.103.2) but ClosedXML 0.103.2 was not found. ClosedXML 0.104.0 was resolved instead.",
       "libraryId": "ClosedXML",
       "targetGraphs": [
-        "net8.0",
-        "net8.0/win-x86"
+        "net8.0"
       ]
     }
   ]

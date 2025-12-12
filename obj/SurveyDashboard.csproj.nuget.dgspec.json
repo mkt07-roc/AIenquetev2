@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj": {}
+    "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj": {
+    "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
+        "projectUniqueName": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
         "projectName": "SurveyDashboard",
-        "projectPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
+        "projectPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
         "packagesPath": "C:\\Users\\MKT07\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\obj\\",
+        "outputPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -76,11 +76,6 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x86": {
-          "#import": []
         }
       }
     }

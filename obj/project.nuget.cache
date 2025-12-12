@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4KrGJeYJO8w=",
+  "dgSpecHash": "i4xRAG0PpZg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
+  "projectFilePath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MKT07\\.nuget\\packages\\closedxml\\0.104.0\\closedxml.0.104.0.nupkg.sha512",
     "C:\\Users\\MKT07\\.nuget\\packages\\closedxml.parser\\1.2.0\\closedxml.parser.1.2.0.nupkg.sha512",
@@ -18,13 +18,12 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "SurveyDashboard depends on ClosedXML (>= 0.103.2) but ClosedXML 0.103.2 was not found. ClosedXML 0.104.0 was resolved instead.",
-      "projectPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
+      "projectPath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
+      "filePath": "C:\\Users\\MKT07\\OneDrive - ROC van Twente\\SD Hengelo\\Leren programmeren met AI\\Enquete AI\\AIenquetev2\\SurveyDashboard\\SurveyDashboard.csproj",
       "libraryId": "ClosedXML",
       "targetGraphs": [
-        "net8.0",
-        "net8.0/win-x86"
+        "net8.0"
       ]
     }
   ]
