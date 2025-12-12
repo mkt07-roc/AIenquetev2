@@ -18,21 +18,17 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      # Restore packages (solution level, no RID)
-      - name: Restore dependencies
-        run: dotnet restore
+      # Restore for the same project + RID you will publish
+      - name: Restore dependencies (win-x86)
+        run: dotnet restore ./SurveyDashboard.csproj -r win-x86
 
-      # Build the solution (NO runtime here!)
+      # Build solution WITHOUT RID (avoids NETSDK1134)
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      # Publish ONE project with runtime
+      # Publish the project with RID, no restore (already done above)
       - name: Publish (win-x86)
-        run: dotnet publish ./SurveyDashboard.csproj `
-          --configuration Release `
-          --runtime win-x86 `
-          --output publish `
-          --no-restore
+        run: dotnet publish ./SurveyDashboard.csproj --configuration Release -r win-x86 --output publish --no-restore
 
       - name: Test
         run: dotnet test --configuration Release --no-build
