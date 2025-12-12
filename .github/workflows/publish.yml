@@ -42,4 +42,4 @@ jobs:
           server-username: ${{ secrets.SERVER_USERNAME }}
           server-password: ${{ secrets.SERVER_PASSWORD }}
           source-path: publish
-          delete-existing-files: true
+          target-delete: true
